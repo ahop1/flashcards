@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -26,13 +26,32 @@
 
 .App-link {
   color: #61dafb;
+} */
+
+.App-container {
+  background-color: #61dafb;
+  margin: 100px;
+}
+/* 
+.App-card {
+  background-color: aquamarine;
+  margin: 50px;
 }
 
-@keyframes App-logo-spin {
+.App-card-content {
+  background-color: aquamarine;
+  margin: 1000;
+}
+
+.App-card-actions {
+  background-color: black;
+} */
+
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
