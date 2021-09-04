@@ -1,5 +1,3 @@
-//import logo from './logo.svg';
-//import './App.css';
 import flashcardSettings from './flashcardSettings.json';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -36,6 +34,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import SaveIcon from '@material-ui/icons/Save';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import LaunchIcon from '@material-ui/icons/Launch';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -330,6 +329,8 @@ function CardSetsDrawer(props) {
   const [tag, setTag] = React.useState("");
   const [tagError, setTagError] = React.useState(false);
   const [tagValues, setTagValues] = React.useState([]);
+  const [settingsText, setSettingsText] = useState("");
+  const [localDialogOpen, setLocalDialogOpen] = useState(false);
 
   const handleCardSetChange = (event) => {
     setCardSetSelected(event.target.value);
@@ -468,6 +469,29 @@ function CardSetsDrawer(props) {
     updatePaperValues("new");
   };
 
+  const handleRefreshLocalStorage = () => {
+    props.handleRefreshLocalStorage();
+    setCardSetSelected("new");
+    updatePaperValues("new");
+  };
+
+  const handleSettingsTextChange = (event) => {
+    setSettingsText(event.target.value);
+  };
+
+  const handleOpenLocalStorageDialog = () => {
+    setLocalDialogOpen(true);
+    setSettingsText(localStorage.getItem("flashcardSettingsString"))
+  };
+
+  const handleLocalStorageDialogClose = (value) => {
+    setLocalDialogOpen(false);
+    if (value === "add") {
+      localStorage.setItem("flashcardSettingsString", settingsText);
+      props.handleLocalStorageDialogClose();
+    };
+  };
+
   return (
     <SwipeableDrawer anchor="right" open={props.rightDrawer} onClose={() => props.handleRightDrawer(false)} onOpen={() => props.handleRightDrawer(true)} classes={{ paper: classes.paper }}>
       <Container>
@@ -535,12 +559,44 @@ function CardSetsDrawer(props) {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={props.handleRefreshLocalStorage} startIcon={<RefreshIcon />}>
+            <Button variant="contained" color="primary" onClick={handleRefreshLocalStorage} startIcon={<RefreshIcon />}>
               Refresh from local storage
             </Button>
           </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" onClick={handleOpenLocalStorageDialog} startIcon={<LaunchIcon />}>
+              Add manually to local storage
+            </Button>
+          </Grid>
+          <Dialog onClose={handleLocalStorageDialogClose} open={localDialogOpen}>
+            <DialogTitle>Edit your flashcardSettings directly in localStorage</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                If you have a JSON file which you would like to make use of, open it and copy/paste the text into here and click
+                "add" to add to your localStorage variables. To then make use of the settings, use the "refresh from local storage" button.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                fullWidth
+                label="flashcardSettings JSON"
+                id="settings"
+                autoComplete="off"
+                multiline
+                value={settingsText}
+                onChange={handleSettingsTextChange}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => handleLocalStorageDialogClose(null)} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={() => handleLocalStorageDialogClose("add")} color="primary">
+                Add
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Grid>
-        {["new", "updated", "saved", "refresh", "not refreshed"].map((status) => {
+        {["new", "updated", "saved", "refresh", "not refreshed", "manually saved"].map((status) => {
           return (
             <Snackbar
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -559,7 +615,9 @@ function CardSetsDrawer(props) {
                         "Saved to localStorage!"
                         : (status === "refresh") ?
                           "Settings refreshed from localStorage!"
-                          : "Problem with localStorage. Nothing saved or incorrect format!"
+                          : (status === "not refreshed") ?
+                            "Problem with localStorage. Nothing saved or incorrect format!"
+                            : "Manual update of localStorage successful!"
                 }
               </MuiAlert>
             </Snackbar>
@@ -1001,7 +1059,7 @@ function App(props) {
     },
   };
 
-  const localFlashcardSettings = JSON.parse(localStorage.getItem("flashCardSettingsString"));
+  const localFlashcardSettings = JSON.parse(localStorage.getItem("flashcardSettingsString"));
 
   const [leftDrawer, setLeftDrawer] = React.useState(false);
   const [rightDrawer, setRightDrawer] = React.useState(false);
@@ -1043,12 +1101,12 @@ function App(props) {
 
   const handleSaveLocalStorage = () => {
     const settingsString = JSON.stringify({ ordering: ordering, frontToBack: frontToBack, fullCardSets: fullCardSets });
-    localStorage.setItem("flashCardSettingsString", settingsString);
+    localStorage.setItem("flashcardSettingsString", settingsString);
     setSuccessAlert("saved");
   };
 
   const handleRefreshLocalStorage = () => {
-    const localFlashcardSettings = JSON.parse(localStorage.getItem("flashCardSettingsString"));
+    const localFlashcardSettings = JSON.parse(localStorage.getItem("flashcardSettingsString"));
     if (localFlashcardSettings !== null) {
       try {
         setOrdering(localFlashcardSettings.ordering);
@@ -1062,6 +1120,10 @@ function App(props) {
       };
     }
     setSuccessAlert("not refreshed");
+  };
+
+  const handleLocalStorageDialogClose = () => {
+    setSuccessAlert("manually saved");
   };
 
   const handleDeleteSelected = () => {
@@ -1260,6 +1322,7 @@ function App(props) {
             handleDownloadSettings={handleDownloadSettings}
             handleSaveLocalStorage={handleSaveLocalStorage}
             handleRefreshLocalStorage={handleRefreshLocalStorage}
+            handleLocalStorageDialogClose={handleLocalStorageDialogClose}
           />
           <Container maxWidth="sm" style={{ height: "calc(100vh - 64px)" }}>
             <Grid container spacing={2} alignItems="center" style={{ height: "100%" }}>
