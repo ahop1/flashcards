@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# My Flashcards App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+This project is my first attempt at building something in React.js. The fully deployed website can be viewed at https://ahop1.github.io/flashcards.
 
-In the project directory, you can run:
+I have been interested in learning to build web-apps for a while having previously built a website for my wedding in Python using Django and having made some desktop apps using PyQt and pyinstaller. After doing some research, React.js appeared to be the best option for the kind of things I wanted to build going forwards.
 
-### `npm start`
+I had recently started learning Sinhala and was organising my notes (including some word lists) just in a paper note book when I thought it would be nice to be able to combine the two learning journeys and build something in React that would also help my Sinhala lessons. And voila - that's where this came from.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Using the app
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+When first loading the website, it will use 3 sets of flashcards that I have built myself. However, the idea is that anyone should be able to use the website with their own card sets. As I've not done anything with any kind of back-end system, the way it's working in terms of "file storage" is by making use of `localStorage` in the browser.
 
-### `npm test`
+### Right drawer - Card sets
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+From here you can create new sets, edit existing sets and handle the "I/O" aspects of the app (via `localStorage`). You have options to:
+- Download card sets and settings - this will download (as a JSON) the card sets you are currently using in the app to your downloads folder (perhaps you would want to share them with a friend).
+- Save to local storage - this saves the currently used card sets to your browser's `localStorage` so that when you come back to the website next time they will still be there.
+- Refresh from local storage - this refreshes the in-app card sets from `localStorage` (this will only make a difference if you have edited what's in `localStorage` yourself since opening the app).
+- Add manually to local storage - this opens a dialog that lets the user manually paste/type the JSON for their settings and card sets into the text field, after which it will be added to local storage as a string. This is how card sets could be shared and "uploaded".
 
-### `npm run build`
+### Left drawer - Test config
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is where the user chooses how they want the test to be carried out (cards in order or shuffled, and cards fron first then back, or back first then front, or a mix between the two). They also choose here which card sets they wish to use in their test via the search and drop-down options. This allows for the creation of larger tests on a broader spectrum of topics than simply testing one card set at a time.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+For example, one could choose to test all cards which go from English to Sinhala in one go. Or if learning multiple languages at the same time they could use tags to select everything related to "fruit" and test all of those in one batch. This area will be most useful for a large number of card sets in the system.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Main area
 
-### `npm run eject`
+Here the flashcards are displayed, including navigation and scoring (which is updated as the user progressed through the current test).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Next steps
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I may try to build the same/similar app in React Native to see how that compares.
