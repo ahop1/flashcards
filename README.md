@@ -26,6 +26,8 @@ This is where the user chooses how they want the test to be carried out (cards i
 
 For example, one could choose to test all cards which go from English to Sinhala in one go. Or if learning multiple languages at the same time they could use tags to select everything related to "fruit" and test all of those in one batch. This area will be most useful for a large number of card sets in the system.
 
+**This selecting area is also where card sets can be *deleted* (e.g. to get rid of the English to Sinhala cards and make your own instead).**
+
 ### Main area
 
 Here the flashcards are displayed, including navigation and scoring (which is updated as the user progressed through the current test).
