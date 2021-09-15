@@ -10,7 +10,7 @@ I had recently started learning Sinhala and was organising my notes (including s
 
 ## Using the app
 
-When first loading the website, it will use 3 sets of flashcards that I have built myself. However, the idea is that anyone should be able to use the website with their own card sets. As I've not done anything with any kind of back-end system, the way it's working in terms of "file storage" is by making use of `localStorage` in the browser.
+When first loading the website, it will use a few sets of flashcards that I have built myself. However, the idea is that anyone should be able to use the website with their own card sets, so these can be fairly easily deleted from the Test Config menu - see below. As I've not done anything with any kind of back-end system, the way it's working in terms of "file storage" is by making use of `localStorage` in the browser.
 
 ### Right drawer - Card sets
 
@@ -30,7 +30,7 @@ For example, one could choose to test all cards which go from English to Sinhala
 
 ### Main area
 
-Here the flashcards are displayed, including navigation and scoring (which is updated as the user progressed through the current test).
+Here the flashcards are displayed, including navigation and scoring (which is updated as the user progressed through the current test). Once a test is completed, you will have the option to review the cards which you marked as incorrect, start a new test, or restart the test you just finished.
 
 ## Next steps
 
