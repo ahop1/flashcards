@@ -962,6 +962,11 @@ function TestCompletedDialog(props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
+        <Button onClick={() => props.handleCompletedClose("review")} color="primary" disabled={props.numincorrect === 0}>
+          Review incorrect cards
+        </Button>
+      </DialogActions>
+      <DialogActions>
         <Button onClick={() => props.handleCompletedClose("new")} color="primary">
           New test
         </Button>
@@ -1226,6 +1231,11 @@ function App(props) {
       setLeftDrawer(true);
     } else if (value === "restart") {
       handleTestCardSetSelected();
+    } else if (value === "review") {
+      const newTestCardSet = testCardSet.filter(cardSet => cardSet.correct === false);
+      setTestCardSet(newTestCardSet);
+      setShowFront(frontToBack === "frontFirst" ? true : (frontToBack === "backFirst" ? false : Math.random() < 0.5));
+      setProgress(0);
     }
   };
 
