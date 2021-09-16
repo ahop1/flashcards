@@ -115,6 +115,9 @@ function Flashcard(props) {
         <Typography variant="body1" color="textPrimary">
           other side: {props.showFront ? props.backCard : props.frontCard}
         </Typography>
+        <Typography variant="body2" color="secondary">
+          {props.showFront ? props.cardSetName : ""}
+        </Typography>
       </CardActionArea>
       <CardActions>
         <Grid item xs={3}>
@@ -1342,6 +1345,7 @@ function App(props) {
                   backCard={testCardSet.length === 0 ? "Back of card" : testCardSet[progress].backCard}
                   frontValue={testCardSet.length === 0 ? "Front value" : testCardSet[progress].frontValue}
                   backValue={testCardSet.length === 0 ? "Back value" : testCardSet[progress].backValue}
+                  cardSetName={testCardSet.length === 0 ? "Card set name" : testCardSet[progress].cardSetName}
                   showFront={showFront}
                   handleShowFront={handleShowFront}
                   handleProgressChange={handleProgressChange}
