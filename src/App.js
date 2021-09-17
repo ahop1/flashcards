@@ -106,7 +106,28 @@ function Flashcard(props) {
   return (
     <Card align="center" raised style={{ padding: "10px", height: "100%" }}>
       <CardActionArea onClick={props.handleShowFront} style={{ height: "calc(100% - 50px)" }}>
-        <Typography variant="h1" color="textPrimary">
+        <Typography
+          variant="h1"
+          color="textPrimary"
+          style={props.showFront ? (props.frontValue.length >= 11 ? {
+            fontSize: '2rem',
+            fontWeight: 400,
+            '@media (min-width:600px)': {
+              fontSize: '3rem',
+            },
+            [props.theme.breakpoints.up('md')]: {
+              fontSize: '4rem',
+            },
+          } : {}) : (props.backValue.length >= 11 ? {
+            fontSize: '2rem',
+            fontWeight: 400,
+            '@media (min-width:600px)': {
+              fontSize: '3rem',
+            },
+            [props.theme.breakpoints.up('md')]: {
+              fontSize: '4rem',
+            },
+          } : {})}>
           {props.showFront ? props.frontValue : props.backValue}
         </Typography>
         <Typography variant="body1" color="textSecondary">
@@ -1351,6 +1372,7 @@ function App(props) {
                   handleProgressChange={handleProgressChange}
                   correct={testCardSet.length === 0 ? null : testCardSet[progress].correct}
                   handleCorrectChange={handleCorrectChange}
+                  theme={theme}
                 />
               </Grid>
               <Grid item xs={12} container alignItems="center" spacing={1}>
