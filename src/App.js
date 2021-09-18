@@ -695,7 +695,7 @@ function ChooseCardSets(props) {
 
   const filterCardSets = (fullCardSets) => {
     let filteredSets = fullCardSets.map((cardSet, num) => { return ({ ...cardSet, fullIndex: num }) });
-    filteredSets = filteredSets.filter(cardSet => cardSet.cardSetName.toLowerCase().includes(search));
+    filteredSets = filteredSets.filter(cardSet => cardSet.cardSetName.toLowerCase().includes(search.toLowerCase()));
     filteredSets = filteredSets.filter(cardSet => front.length === 0 || front.indexOf(cardSet.frontCard) !== -1);
     filteredSets = filteredSets.filter(cardSet => back.length === 0 || back.indexOf(cardSet.backCard) !== -1);
     filteredSets = filteredSets.filter(cardSet => selectedTags.length === 0 || selectedTags.some(tag => cardSet.tagValues.indexOf(tag) !== -1))
@@ -704,7 +704,7 @@ function ChooseCardSets(props) {
   // Below is not a state value but we store it in a variable for convenience.
   const showingCardSets = filterCardSets(props.fullCardSets);
 
-  const filteredTags = props.tagList.filter(tag => tag.includes(tagText));
+  const filteredTags = props.tagList.filter(tag => tag.toLowerCase().includes(tagText.toLowerCase()));
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
