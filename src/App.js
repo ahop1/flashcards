@@ -61,7 +61,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,28 +106,7 @@ function Flashcard(props) {
   return (
     <Card align="center" raised style={{ padding: "10px", height: "100%" }}>
       <CardActionArea onClick={props.handleShowFront} style={{ height: "calc(100% - 50px)" }}>
-        <Typography
-          variant="h1"
-          color="textPrimary"
-          style={props.showFront ? (props.frontValue.length >= 11 ? {
-            fontSize: '2rem',
-            fontWeight: 400,
-            '@media (min-width:600px)': {
-              fontSize: '3rem',
-            },
-            [props.theme.breakpoints.up('md')]: {
-              fontSize: '4rem',
-            },
-          } : {}) : (props.backValue.length >= 11 ? {
-            fontSize: '2rem',
-            fontWeight: 400,
-            '@media (min-width:600px)': {
-              fontSize: '3rem',
-            },
-            [props.theme.breakpoints.up('md')]: {
-              fontSize: '4rem',
-            },
-          } : {})}>
+        <Typography variant="h1" color="textPrimary" style={props.fontStyle(props.showFront ? props.frontValue.length : props.backValue.length, props.matchesMedium)}>
           {props.showFront ? props.frontValue : props.backValue}
         </Typography>
         <Typography variant="body1" color="textSecondary">
@@ -1077,17 +1056,6 @@ function App(props) {
     [prefersDarkMode],
   );
 
-  theme.typography.h1 = {
-    fontSize: '3rem',
-    fontWeight: 400,
-    '@media (min-width:600px)': {
-      fontSize: '4rem',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '5rem',
-    },
-  };
-
   const localFlashcardSettings = JSON.parse(localStorage.getItem("flashcardSettingsString"));
 
   const [leftDrawer, setLeftDrawer] = React.useState(false);
@@ -1103,6 +1071,27 @@ function App(props) {
   const [helpOpen, setHelpOpen] = useState(false);
   const [successAlert, setSuccessAlert] = useState(null);
   const [testAlert, setTestAlert] = useState(null);
+
+  const mediaMatchMedium = window.matchMedia('(min-width:600px)');
+  const [matchesMedium, setMatchesMedium] = useState(mediaMatchMedium.matches);
+
+  useEffect(() => {
+    const handler = e => setMatchesMedium(e.matches);
+    mediaMatchMedium.addEventListener("change", handler);
+    return () => mediaMatchMedium.removeEventListener("change", handler);
+  });
+  
+  const char_length_crit = 20;
+
+  const styles = {
+    h1: (char_length, isMedium) => {
+      if (isMedium) {
+        return {fontWeight: 400, fontSize: char_length <= char_length_crit ? '5rem' : '4rem'};
+      } else {
+        return {fontWeight: 400, fontSize: char_length <= char_length_crit ? '3rem' : '2rem'};
+      };
+    }
+  }
 
   const correctCards = testCardSet.filter(cardSet => cardSet.correct === true).length;
   const incorrectCards = testCardSet.filter(cardSet => cardSet.correct === false).length;
@@ -1372,7 +1361,8 @@ function App(props) {
                   handleProgressChange={handleProgressChange}
                   correct={testCardSet.length === 0 ? null : testCardSet[progress].correct}
                   handleCorrectChange={handleCorrectChange}
-                  theme={theme}
+                  fontStyle={styles.h1}
+                  matchesMedium={matchesMedium}
                 />
               </Grid>
               <Grid item xs={12} container alignItems="center" spacing={1}>
