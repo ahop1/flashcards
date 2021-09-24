@@ -1005,7 +1005,7 @@ function HelpBackdrop(props) {
             <Grid item xs={6} container justifyContent="flex-end" alignItems="baseline">
               <Grid item xs={10} sm={7}>
                 <Typography variant="subtitle1">
-                  Use this menu create new card sets or modify existing card sets.
+                  Use this menu to create new card sets or modify existing card sets.
                 </Typography>
               </Grid>
               <Grid item xs={1} container justifyContent="center">
