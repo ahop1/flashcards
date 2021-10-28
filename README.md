@@ -22,7 +22,7 @@ From here you can create new sets, edit existing sets and handle the "I/O" aspec
 
 ### Left drawer - Test config
 
-This is where the user chooses how they want the test to be carried out (cards in order or shuffled, and cards fron first then back, or back first then front, or a mix between the two). They also choose here which card sets they wish to use in their test via the search and drop-down options. This allows for the creation of larger tests on a broader spectrum of topics than simply testing one card set at a time.
+This is where the user chooses how they want the test to be carried out (cards in order or shuffled, and cards front first then back, or back first then front, or a mix between the two). They also choose here which card sets they wish to use in their test via the search and drop-down options. This allows for the creation of larger tests on a broader spectrum of topics than simply testing one card set at a time.
 
 For example, one could choose to test all cards which go from English to Sinhala in one go. Or if learning multiple languages at the same time they could use tags to select everything related to "fruit" and test all of those in one batch. This area will be most useful for a large number of card sets in the system.
 
