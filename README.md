@@ -37,7 +37,7 @@ Here the flashcards are displayed, including navigation and scoring (which is up
 I may try to build the same/similar app in React Native to see how that compares.
 
 Other ideas for further development of the app:
-* Unit testing.
+* Unit testing & better comments.
 * Functionality to search for words (like a dictionary look-up).
 * A better way to reorganise collections of card sets (e.g. recategorising/moving groups of words into a new set without having to create again from scratch). And generally better ways to create new hierarchies for better organisation of card sets.
 * Toggle on/off the display of the card set to which the card belongs (can be a giveaway sometimes).
